@@ -4,9 +4,15 @@ export var split_screen_type = 0;
 
 func _ready():
 	set_process(true);
+	get_tree().get_root().connect("size_changed", self, "_on_screen_resolution_changed")
 
 func _process(delta):
 	update();
+
+func _on_screen_resolution_changed():
+	# update its size when window resolution changed
+	var window_size = OS.get_window_size()
+	set_size(Vector2(window_size.width, window_size.height))
 
 func _draw():
 	var draw_p1 = false;
